@@ -7,6 +7,7 @@ import { clsx } from "clsx";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import { getDictionary } from "@/dictionaries/get-dictionary";
+import { Providers } from "@/providers/StoreProvider";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export async function generateStaticParams() {
@@ -35,10 +36,12 @@ export default async function RootLayout({
           "flex min-h-screen flex-col transition duration-300"
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <Header lang={params.lang} dictionary={dictionary} />
-          <main className="flex-1">{children}</main>
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider attribute="class" defaultTheme="light">
+            <Header lang={params.lang} dictionary={dictionary} />
+            <main className="flex-1">{children}</main>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
